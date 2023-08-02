@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HeysApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login"><![CDATA[Enter your Email & Password to Login]]></string>
+    <string name="new_account"><![CDATA[Enter your Username, Email & Password to Create a new account]]></string>
+</resources>
