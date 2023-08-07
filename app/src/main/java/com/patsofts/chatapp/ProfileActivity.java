@@ -7,7 +7,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,12 +41,12 @@ import com.patsofts.chatapp.Models.UserModel;
 import java.util.HashMap;
 import java.util.Objects;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class ProfileActivity extends AppCompatActivity {
 
-    CircleImageView image_profile;
-    TextView username, email;
+    ImageView image_profile, image_pencil, image_pencil_bio;
+    ProgressBar progress_profile, progress_load_p_Image;
+    EditText username_edit, bio_edit;
+    TextView email, cant_be_empty;
 
     DatabaseReference dReference;
     FirebaseUser fUser;
@@ -61,11 +67,17 @@ public class ProfileActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle("Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> {
-           finish();
+            finish();
         });
 
         image_profile = findViewById(R.id.profile_image);
-        username = findViewById(R.id.username);
+        progress_profile = findViewById(R.id.progress_profile);
+        progress_load_p_Image = findViewById(R.id.progress_load_p_Image);
+        cant_be_empty = findViewById(R.id.not_be_empty);
+        image_pencil = findViewById(R.id.pencil);
+        image_pencil_bio = findViewById(R.id.pencil_bio);
+        username_edit = findViewById(R.id.username_edit);
+        bio_edit = findViewById(R.id.bio_edit);
         email = findViewById(R.id.email);
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
@@ -83,18 +95,61 @@ public class ProfileActivity extends AppCompatActivity {
                 UserModel userModel = snapshot.getValue(UserModel.class);
 
                 assert userModel != null;
-                username.setText(userModel.getUserName());
+                progress_profile.setVisibility(View.GONE);
+                username_edit.setText(userModel.getUserName());
                 email.setText(userModel.getUserEmail());
                 if (userModel.getImageURL().equals("default")) {
                     image_profile.setImageResource(R.mipmap.ic_launcher);
+                    progress_load_p_Image.setVisibility(View.GONE);
                 } else {
                     Glide.with(ProfileActivity.this).load(userModel.getImageURL()).into(image_profile);
+                    progress_load_p_Image.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        username_edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String name = username_edit.getText().toString().trim();
+                if (s.length() > 0 && s.length() <= 30 && !name.equals("")) {
+                    image_pencil.setVisibility(View.VISIBLE);
+                    cant_be_empty.setVisibility(View.GONE);
+                }  else {
+                    image_pencil.setVisibility(View.GONE);
+                    cant_be_empty.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        bio_edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                image_pencil_bio.setVisibility(View.VISIBLE);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 

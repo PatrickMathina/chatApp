@@ -19,6 +19,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/profile_image"
+        android:letterSpacing=".03"
         android:text="username"
         android:textSize="18sp"
         android:textStyle="bold" />

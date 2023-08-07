@@ -18,8 +18,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_marginEnd="8dp" />
 
             <TextView
@@ -28,6 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:textColor="@color/white"
+                android:letterSpacing=".05"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <ProgressBar
@@ -43,7 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/teal_700"
+            app:tabGravity="fill"
             app:tabIndicatorColor="@color/white"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/teal_200" />
 
@@ -51,27 +55,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TextView
-            android:id="@+id/loading_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="Loading chats...\nMake sure you are connected to the internet" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/proB" />
 
         <ProgressBar
             android:id="@+id/proB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="64dp" />
+
+        <TextView
+            android:id="@+id/loading_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/proB"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="   Loading...\nMake sure you are connected to the internet" />
 
     </RelativeLayout>
 

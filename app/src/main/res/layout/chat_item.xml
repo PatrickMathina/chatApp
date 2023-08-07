@@ -7,8 +7,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
@@ -20,7 +20,8 @@
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/profile_image"
         android:text="..."
-        android:textSize="18sp"
+        android:letterSpacing=".03"
+        android:textSize="19sp"
         android:textStyle="bold" />
 
     <TextView
@@ -67,7 +68,6 @@
         android:layout_toEndOf="@+id/profile_image"
         android:ellipsize="end"
         android:maxLines="1"
-
         android:paddingTop="2dp"
         android:textColor="@color/blue" />
 
