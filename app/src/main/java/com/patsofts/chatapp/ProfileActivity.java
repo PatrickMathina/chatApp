@@ -39,6 +39,7 @@ import com.google.firebase.storage.StorageTask;
 import com.patsofts.chatapp.Models.UserModel;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -47,10 +48,8 @@ public class ProfileActivity extends AppCompatActivity {
     ProgressBar progress_profile, progress_load_p_Image;
     EditText username_edit, bio_edit;
     TextView email, cant_be_empty;
-
     DatabaseReference dReference;
     FirebaseUser fUser;
-
     StorageReference storageReference;
     private static final int IMAGE_REQUEST = 1;
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 2;
@@ -105,6 +104,32 @@ public class ProfileActivity extends AppCompatActivity {
                     Glide.with(ProfileActivity.this).load(userModel.getImageURL()).into(image_profile);
                     progress_load_p_Image.setVisibility(View.GONE);
                 }
+
+                username_edit.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String name = username_edit.getText().toString().trim();
+
+                        if (s.length() > 0 && s.length() <= 30 && !name.equals("") && !name.equals(userModel.getUserName())) {
+                            image_pencil.setVisibility(View.VISIBLE);
+                            cant_be_empty.setVisibility(View.GONE);
+                        } else if (name.equals(userModel.getUserName())) {
+                            image_pencil.setVisibility(View.GONE);
+                        } else {
+                            cant_be_empty.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
             }
 
             @Override
@@ -113,28 +138,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        username_edit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String name = username_edit.getText().toString().trim();
-                if (s.length() > 0 && s.length() <= 30 && !name.equals("")) {
-                    image_pencil.setVisibility(View.VISIBLE);
-                    cant_be_empty.setVisibility(View.GONE);
-                }  else {
-                    image_pencil.setVisibility(View.GONE);
-                    cant_be_empty.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
 
         bio_edit.addTextChangedListener(new TextWatcher() {
             @Override
