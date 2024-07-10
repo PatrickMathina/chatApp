@@ -92,7 +92,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return messageModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         public TextView show_msg, txt_seen, txt_time;
         public ImageView profile_image;
 
